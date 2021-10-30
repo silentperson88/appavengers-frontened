@@ -1,13 +1,22 @@
-import { Button, Container, TextField } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Collapse,
+  Container,
+  IconButton,
+  TextField,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import React, { useState } from "react";
 import axios from "axios";
 
 function CreateProfile() {
+  const [open, setOpen] = React.useState(false);
   const [firstName, setfirstName] = useState();
   const [lastName, setLastName] = useState();
   const [age, setAge] = useState();
   const [description, setDescription] = useState();
-
+  // let postAlert = null;
   const handleProfileCreater = () => {
     const body = {
       firstName: firstName,
@@ -21,6 +30,12 @@ function CreateProfile() {
         body
       )
       .then((res) => console.log("Profile Created"));
+    setfirstName("");
+    setLastName("");
+    setAge("");
+    setDescription("");
+    setOpen(true);
+    // postAlert = {<Alert severity="success">This is a success alert — check it out!</Alert>}
   };
   return (
     <Container
@@ -34,6 +49,26 @@ function CreateProfile() {
         borderRadius: "5px",
       }}
     >
+      {/* <Alert severity="success">This is a success alert — check it out!</Alert> */}
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Successfully Profile Created
+        </Alert>
+      </Collapse>
       <TextField
         style={{ marginBottom: "10px" }}
         id="outlined-basic"

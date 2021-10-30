@@ -47,6 +47,7 @@ function ProfileList() {
       .then(console.log("Profile Deleted"));
     const newprofilelist = profile.filter((item) => item._id !== idd);
     setprofile(newprofilelist);
+    setAlertOpen(false);
   };
   useEffect(() => {
     axios
